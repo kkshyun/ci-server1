@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: hello
-    - run: echo "hello"
+      run: echo "hello"
   #     uses: actions/setup-java@v4
   #     with:
   #       java-version: '17'
