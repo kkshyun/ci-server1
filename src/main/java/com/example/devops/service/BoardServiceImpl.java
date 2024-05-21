@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
-// //
+
     @Override
     public void insertBoard(InsertBoardRequest insertBoardRequest) {
         boardRepository.save(insertBoardRequest.toEntity());
