@@ -17,5 +17,4 @@ class DevopsApplicationTests {
 	void dbUserNameIsSa(){
 		Assertions.assertEquals("sa",username);
 	}
-
 }

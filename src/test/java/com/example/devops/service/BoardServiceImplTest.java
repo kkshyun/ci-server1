@@ -12,13 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest // spring을 실행을 시킴 , 없으면 스프링을 실행시키지 않음
 @Transactional
 class BoardServiceImplTest {
-    @Autowired
+
+    
+    @Autowired // bean 에서 빼올 수 있음
     private BoardRepository boardRepository;
     @Autowired
     private BoardServiceImpl boardServiceImpl;
+
+
+    
     @Test
     void insertBoard() {
         InsertBoardRequest req = new InsertBoardRequest("user name","board title");
@@ -47,4 +52,6 @@ class BoardServiceImplTest {
         boardServiceImpl.insertBoard(req2);
         assertEquals(2,boardServiceImpl.getAllBoards().size());
     }
+    
+   
 }

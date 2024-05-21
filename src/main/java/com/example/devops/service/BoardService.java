@@ -11,4 +11,5 @@ public interface BoardService {
     public Board getBoardById(Long id);
 
     public List<Board> getAllBoards();
+    void deleteById(Long id);
 }

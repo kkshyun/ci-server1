@@ -33,4 +33,11 @@ public class BoardServiceImpl implements BoardService{
     public List<Board> getAllBoards() {
         return boardRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        Optional<Board> byId = boardRepository.findById(id);
+        byId.orElseThrow(IllegalArgumentException::new);
+        boardRepository.deleteById(id);
+    }
 }
