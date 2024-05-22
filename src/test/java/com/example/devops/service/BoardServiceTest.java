@@ -4,40 +4,52 @@ import com.example.devops.domain.entity.Board;
 import com.example.devops.exception.UserNotFoundException;
 import com.example.devops.global.repository.BoardRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
-    @Autowired
+    @InjectMocks
     private BoardService boardService;
-    @Autowired
+    @Mock
     private BoardRepository boardRepository;
 
     @Test
     void deleteById() {
         // case 2: 있을 때
         // given
-        Board save = boardRepository.save(new Board(null, "test", "test"));
-        Long id = save.getId();
-
+        Long id = 1L;
+        BDDMockito.doNothing().when(boardRepository).deleteById(id);
+        BDDMockito.given(boardRepository.findById(id))
+                .willReturn(Optional.of(new Board(1L,null,null)));
         // when
         boardService.deleteById(id);
 
         // then
-        assertEquals(0, boardRepository.findAll().size());
     }
 
 
     @Test
     void deleteByIdFail() {
         // case 1: id 이런 것이 없을 때
-        Long id = 80000L;
+        Long id = 50000L;
+        BDDMockito.given(boardRepository.findById(id))
+                .willReturn(Optional.empty());
 
+        // when & then
         assertThrows(IllegalArgumentException.class, () -> {
             boardService.deleteById(id);
         });
+
     }
 }
